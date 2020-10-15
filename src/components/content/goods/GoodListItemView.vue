@@ -1,14 +1,15 @@
 <template>
   <div class="good-list-item-view">
     <img :src="goodsItem.show.img" alt="" class="img">
-    <div>
+    <div class="good-info">
       <p>{{ goodsItem.title }}</p>
-      <div class="price">{{ goodsItem.price }}</div>
-      <div class="collect"><i class="collect-icon"></i>
-        <span>{{ goodsItem.cfav}}</span><
-      </div>
+      <span class="price">{{ goodsItem.price }}</span>
+      <div class="collect">
+        <img src="~assets/img/common/home/favourite.svg" class="collect-icon">
+        <span>{{ goodsItem.cfav }}</span></div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -27,30 +28,53 @@ export default {
 
 <style scoped>
 .good-list-item-view {
-  width: 49%;
-  height: auto;
-  padding-top: 6px;
-  font-size: 14px;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  position: relative;
+  width: 48%;
 }
 
 .img {
   width: 100%;
-  height: auto;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
-.price {
-  display: flex;
-  justify-content: space-between;
-  margin: 6px 0;
+.good-info {
+  font-size: 14px;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  text-align: center;
+
 }
 
-.collect-icon{
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  /*background: url("~assets/img/home/collect_icon.png") no-repeat;*/
-  background-size: cover;
-  vertical-align: bottom;
+.good-info p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 3px;
+}
+
+.good-info .price {
+  /*margin-right: 20px;*/
+  color: var(--color-height-text);
+}
+
+.good-info .collect {
+  position: relative;
+  color: var(--color-height-text);
+}
+
+.good-info .collect-icon::before {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: -1px;
+  width: 14px;
+  height: 14px;
+  background: 0 0/14px 14px;
+
 }
 </style>

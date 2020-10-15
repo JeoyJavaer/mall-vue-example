@@ -3,21 +3,30 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <HomeSwiper :banners="banners"/>
-    <recommend-view :recommends="recommends"/>
-    <home-feature/>
-    <tab-control class="tab-control" :titles="['流行','新款','精选']"/>
-    <goods-list-view :goods="goods['pop'].list"/>
+
+    <scroll class="content" ref="scroll" :probe-type="3">
+      <HomeSwiper :banners="banners"/>
+      <recommend-view :recommends="recommends"/>
+      <home-feature/>
+      <tab-control class="tab-control"
+                   :titles="['流行','新款','精选']"
+                   @tabClick="tabClick"/>
+      <goods-list-view :goods="showGoods"/>
+    </scroll>
+    <back-top @click.native="backClick"/>
   </div>
 </template>
 
 <script>
-import NavBar from "components/common/navbar/NavBar";
+
 import TabControl from "components/content/tabcontrol/TabControl";
 import GoodsListView from "components/content/goods/GoodsListView";
-
+import Scroll from "components/common/scroll/Scroll";
+import NavBar from "components/common/navbar/NavBar";
+import BackTop from "components/content/backtop/BackTop";
 
 import HomeSwiper from "./childcomps/HomeSwiper";
+
 import RecommendView from "views/home/childcomps/HomeRecommendView";
 import HomeFeature from "views/home/childcomps/HomeFeature";
 
@@ -25,16 +34,19 @@ import HomeFeature from "views/home/childcomps/HomeFeature";
 import {getHomeMultiata, getHomeGoods} from "@/network/home";
 
 
+
 export default {
   name: "Home",
   components: {
+    BackTop,
     GoodsListView,
     NavBar,
     TabControl,
 
     HomeFeature,
     RecommendView,
-    HomeSwiper
+    HomeSwiper,
+    Scroll
 
   },
 
@@ -55,11 +67,17 @@ export default {
           page: 0,
           list: []
         },
-      }
+      },
+
+      currentType: 'pop'
     }
   },
 
-
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list
+    }
+  },
 
   created() {
 
@@ -71,8 +89,35 @@ export default {
     this.homeGoodsGet('sell')
   },
 
-  methods:{
-    homeMultiDataGet(){
+  methods: {
+
+    /*事件监听*/
+    tabClick(index) {
+      // console.log(index);
+      switch (index) {
+        case 0:
+          this.currentType = 'pop'
+          break
+        case 1:
+          this.currentType = 'new'
+          break
+        case 2:
+          this.currentType = 'sell'
+          break
+      }
+    },
+
+
+    /*监听组件的点击，必须要加.navtive  @click.native*/
+    backClick(){
+      console.log('点击了');
+      // this.$refs.scroll.scroll.scrollTo(0,0,500)
+      this.$refs.scroll.scrollPosition(0,0,500)
+    },
+
+
+    /*网络请求*/
+    homeMultiDataGet() {
       getHomeMultiata().then(res => {
         // console.log(res);
         this.banners = res.data.banner.list
@@ -81,16 +126,16 @@ export default {
         console.log('getHomeMultiata' + err);
       })
     },
-    homeGoodsGet(type){
-      const  page = this.goods[type].page +1
-      getHomeGoods(type,page).then(res=>{
-        console.log(res);
+    homeGoodsGet(type) {
+      const page = this.goods[type].page + 1
+      getHomeGoods(type, page).then(res => {
+        // console.log(res);
         let list = res.data.list;
         // ... 解析函数
         this.goods[type].list.push(...list)
-        this.goods[type].page +=1
-      }).catch(err=>{
-        console.log('getHomeGoods:'+type+err);
+        this.goods[type].page += 1
+      }).catch(err => {
+        console.log('getHomeGoods:' + type + err);
       })
     }
   }
@@ -99,7 +144,25 @@ export default {
 
 <style scoped>
 #home {
-  padding-top: 44px;
+
+  width: 100vh;
+  height: 100vh;
+
+}
+
+/*.content {*/
+/*  height: calc(100% - 93px);*/
+/*  overflow: hidden;*/
+/*  margin-top: 44px;*/
+/*}*/
+
+.content{
+  overflow: hidden;
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
 }
 
 .home-nav {
@@ -115,8 +178,9 @@ export default {
 
 .tab-control {
   /*设置停留的属性*/
-  position: sticky;
-  top: 60px;
+  /*position: sticky;*/
+  top: 44px;
+  z-index: 9;
 }
 
 

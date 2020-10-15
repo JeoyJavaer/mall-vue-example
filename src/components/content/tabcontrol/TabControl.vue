@@ -24,7 +24,14 @@ name: "TabControl",
   },
   methods:{
     itemClick(index){
-      this.currentIndex=index
+      if (this.currentIndex === index) {
+        console.log("点击了同一tab");
+      } else {
+        this.currentIndex=index;
+        this.$emit('tabClick',index)
+
+      }
+
     }
   }
 }

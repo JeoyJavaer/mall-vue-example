@@ -1,5 +1,5 @@
 <template>
-  <tab-bar>
+  <tab-bar class="tab-bar">
     <tab-bar-item  path="/home">
       <img src="~assets/img/common/tabbar/home.svg" alt="" slot="item-icon">
       <img src="~assets/img/common/tabbar/home-active.svg" alt="" slot="item-icon-active">
@@ -38,5 +38,7 @@ export default {
 </script>
 
 <style scoped>
-
+ .tab-bar{
+   background: white;
+ }
 </style>
