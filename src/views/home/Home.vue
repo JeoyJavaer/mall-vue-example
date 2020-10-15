@@ -144,10 +144,13 @@ export default {
 
 <style scoped>
 #home {
-
-  width: 100vh;
   height: 100vh;
+}
 
+.content{
+  height: 4740px;
+  overflow: hidden;
+  margin-top: 44px;
 }
 
 /*.content {*/
@@ -156,14 +159,14 @@ export default {
 /*  margin-top: 44px;*/
 /*}*/
 
-.content{
-  overflow: hidden;
-  position: absolute;
-  top: 44px;
-  bottom: 49px;
-  left: 0;
-  right: 0;
-}
+/*.content{*/
+/*  overflow: hidden;*/
+/*  position: absolute;*/
+/*  top: 44px;*/
+/*  bottom: 49px;*/
+/*  left: 0;*/
+/*  right: 0;*/
+/*}*/
 
 .home-nav {
   background: var(--color-tint);
