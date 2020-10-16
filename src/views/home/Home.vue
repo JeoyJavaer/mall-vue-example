@@ -5,12 +5,13 @@
     </nav-bar>
 
     <scroll class="content" ref="scroll" :probe-type="3">
-      <HomeSwiper :banners="banners"/>
+      <home-swiper :banners="banners" @swiperimageload="swiperimageload"/>
       <recommend-view :recommends="recommends"/>
       <home-feature/>
       <tab-control class="tab-control"
                    :titles="['流行','新款','精选']"
-                   @tabClick="tabClick"/>
+                   @tabClick="tabClick"
+                    ref="tabcontrol"/>
       <goods-list-view :goods="showGoods"/>
     </scroll>
     <back-top @click.native="backClick"/>
@@ -69,7 +70,8 @@ export default {
         },
       },
 
-      currentType: 'pop'
+      currentType: 'pop',
+      tabOffsetTop:0
     }
   },
 
@@ -89,7 +91,19 @@ export default {
     this.homeGoodsGet('sell')
   },
 
+  mounted() {
+
+  },
+
   methods: {
+
+    swiperimageload(){
+      /*所有的组件都有这个属性$el，可以获取到组件内的元素*/
+      /*这里获取到的数据，有可能是图片没有加载完成的，需要监控所有图片加载完成之后设置数据，轮播/feature/列表*/
+      this.offsetTop=this.$refs.tabcontrol.$el.offsetTop
+      console.log(this.offsetTop);
+    },
+
 
     /*事件监听*/
     tabClick(index) {
