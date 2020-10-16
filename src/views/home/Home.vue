@@ -71,7 +71,8 @@ export default {
       },
 
       currentType: 'pop',
-      tabOffsetTop:0
+      tabOffsetTop:0,
+      saveY:0
     }
   },
 
@@ -93,6 +94,23 @@ export default {
 
   mounted() {
 
+  },
+
+  //页面显示
+  activated() {
+    if (this.saveY>0){
+      this.$refs.scroll.scrollPosition(0,this.saveY,0) //滚动到指定位置
+
+    //TODO  舒刷新数据  refresh (代码同步之后改)
+    }
+  },
+
+
+
+  //页面离开
+  deactivated() {
+      //开始保存位置
+    this.saveY =this.$refs.scroll.getCurrentPositionY()
   },
 
   methods: {

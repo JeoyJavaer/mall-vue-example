@@ -1,5 +1,5 @@
 <template>
-  <div class="good-list-item-view">
+  <div class="good-list-item-view"  @click="itemClick">
     <img :src="goodsItem.show.img" alt="" class="img">
     <div class="good-info">
       <p>{{ goodsItem.title }}</p>
@@ -21,6 +21,19 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+
+  methods:{
+    itemClick(){
+      console.log('跳到详情页');
+      this.$router.push('/detail/'+this.goodsItem.iid)
+      // this.$router.push({
+      //   path:'/detail',
+      //   query:{
+      //     'iid':this.goodsItem.iid
+      //   }
+      // })
     }
   }
 }

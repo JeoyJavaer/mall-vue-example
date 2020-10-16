@@ -29,7 +29,13 @@ export default {
   methods: {
     scrollPosition(x, y, time = 400) {
       this.scroll.scrollTo(x, y, time)
+    },
+
+
+    getCurrentPositionY(){
+      return this.scroll ? this.scroll.y :0
     }
+
   },
 
   mounted() {
