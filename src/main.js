@@ -3,6 +3,8 @@ import App from './App.vue'
 
 Vue.config.productionTip = false
 
+Vue.prototype.$bus=new Vue()
+
 import router from './router/index'
 // import store from 'store/store'
 

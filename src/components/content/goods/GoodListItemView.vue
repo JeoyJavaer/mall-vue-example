@@ -1,6 +1,6 @@
 <template>
   <div class="good-list-item-view"  @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" class="img">
+    <img :src="goodsItem.show.img" alt="" class="img" @load="imageLoad">
     <div class="good-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -34,8 +34,12 @@ export default {
       //     'iid':this.goodsItem.iid
       //   }
       // })
+    },
+    imageLoad(){
+      this.$bus.$emit('itemImageLoad')
     }
-  }
+  },
+
 }
 </script>
 
