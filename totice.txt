@@ -4,3 +4,18 @@
 
 
 10.home中的位置保存原来状态 keep-alive   better-scroll 保存位置信息，进来时设置位置信息
+
+fastclick解决移动端延迟300ms的问题
+
+图片懒加载  vue-lazyload
+
+使用步骤
+1安装
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyLoad)
+
+<img v-lazy='scr'/>
+
+
+
+px -> vw

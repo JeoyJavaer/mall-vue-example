@@ -12,7 +12,7 @@ export default {
 
   data() {
     return {
-      msg: '',
+      message: '',
       show: false
     }
   },
@@ -23,7 +23,7 @@ export default {
       this.show = true
       setTimeout(() => {
         this.show = false
-        this.msg=''
+        this.message=''
       }, time)
     }
   }
