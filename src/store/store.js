@@ -1,30 +1,21 @@
-import  Vue from 'vue'
-import  Vuex from 'vuex'
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+import mutations from "@/store/mutations";
+import getters from "@/store/getters";
+import actions from "@/store/actions";
 
 Vue.use(Vuex)
 
-const  state ={
-
-  carList:[]
+const state = {
+  carList: []
 }
 
- const  store =new Vuex.Store({
+export default new Vuex.Store({
   state,
-  mutations:{
-    //直接更新state 里面的数据
-  },
-
-  getters:{
-    carCounter(state){
-     return state.carList.length
-    }
-  },
-
-  actions:{
-    //执行一步操作vue-> actions->mutations
-  }
-
-
+  mutations,
+  getters,
+  actions
 })
 
-export  default
+

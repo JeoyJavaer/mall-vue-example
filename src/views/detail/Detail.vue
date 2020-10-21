@@ -1,5 +1,5 @@
 <template>
-  <div id="detail">
+  <div class="detail">
     <detail-nav-bar/>
     <detail-swiper :topImages="topImages"/>
     <detail-base-info :goods="goods"/>
@@ -52,5 +52,7 @@ export default {
 </script>
 
 <style scoped>
-
+.detail{
+  height: 100Vh;
+}
 </style>

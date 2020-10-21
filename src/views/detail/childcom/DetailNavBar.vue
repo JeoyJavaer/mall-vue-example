@@ -58,5 +58,6 @@ export default {
 
 .back img {
   /*margin-top: 10px;*/
+  align-content: center;
 }
 </style>

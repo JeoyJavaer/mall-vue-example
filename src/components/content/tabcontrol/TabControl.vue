@@ -41,7 +41,7 @@ name: "TabControl",
 .tab-control{
   display: flex;
   text-align: center;
-  font-size: 25px;
+  font-size: 14px;
   height: 40px;
   line-height: 40px;
   background: white;

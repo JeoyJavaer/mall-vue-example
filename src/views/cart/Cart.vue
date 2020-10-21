@@ -1,30 +1,44 @@
 <template>
-  <div id="cart">
-    <scroll ref="scrollcart" class="content">
-      <ul>
-        <li>这是要展示的数据1</li>
-        <li>这是要展示的数据100</li>
-      </ul>
-    </scroll>
+  <div class="cart">
+    <nav-bar class="cart-nav-bar">
+      <div slot="center">购物车({{cartSize}})</div>
+    </nav-bar>
+    <cart-list/>
   </div>
 </template>
 
 <script>
-import Scroll from "@/components/common/scroll/Scroll";
+
+import NavBar from "@/components/common/navbar/NavBar";
+import CartList from "@/views/cart/childcomps/CartList";
+import {mapGetters} from 'vuex'
 
 export default {
 name: "Cart",
   components:{
-    Scroll,
+    CartList,
+    NavBar,
+
   },
+
+  computed:{
+    ...mapGetters({
+      cartSize:'cartLength',
+      cartList:'cartList'
+    })
+  }
 
 }
 </script>
 
 <style scoped>
-.content{
-  height: 600px;
-  background: red;
-  overflow: hidden;
+.cart{
+  height: 100Vh;
+}
+
+.cart-nav-bar{
+  background-color:#ff5777;
+  color: white;
+
 }
 </style>

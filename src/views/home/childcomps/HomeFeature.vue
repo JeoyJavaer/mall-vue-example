@@ -18,6 +18,6 @@ export default {
 }
 
 .feature img{
-  width: 100vh;
+  width: 100%;
 }
 </style>
