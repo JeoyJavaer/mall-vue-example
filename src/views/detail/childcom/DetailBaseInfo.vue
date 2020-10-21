@@ -1,21 +1,21 @@
 <template>
   <div class="base-info">
-<!--    <div class="info-title">{{ goods.title }}</div>-->
-<!--    <div class="info-price">-->
-<!--      <span class="n-price">{{ goods.nowPrice }}</span>-->
-<!--      <span class="o-price">{{ goods.oldPrice }}</span>-->
-<!--      <span-->
-<!--        :style="{ backgroundColor: goods.discountBgColor }"-->
-<!--        class="discount"-->
-<!--        v-if="goods.discount">-->
-<!--        {{ goods.discount }}-->
-<!--      </span>-->
-<!--    </div>-->
-<!--    <div class="info-other">-->
-<!--      <span>{{ goods.columns[0] }}</span>-->
-<!--      <span>{{ goods.columns[1] }}</span>-->
-<!--      <span>{{ goods.services[goods.services.length - 1].name }}</span>-->
-<!--    </div>-->
+    <div class="info-title">{{ goods.title }}</div>
+    <div class="info-price">
+      <span class="n-price">{{ goods.oldPrice }}</span>
+      <span class="o-price">{{ goods.nowPrice }}</span>
+      <span
+        :style="{ backgroundColor: goods.discountBgColor }"
+        class="discount"
+        v-if="goods.discount">
+        {{ goods.discount }}
+      </span>
+    </div>
+    <div class="info-other">
+      <span>{{ goods.columns[0] }}</span>
+      <span>{{ goods.columns[1] }}</span>
+      <span>{{ goods.services[goods.services.length-1].name }}</span>
+    </div>
     <div class="info-service">
       <span
         :key="index"

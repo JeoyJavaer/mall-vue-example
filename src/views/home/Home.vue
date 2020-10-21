@@ -120,6 +120,20 @@
       </scroll>
     </div>
 <!--    <back-top @click.native="backClick"/>-->
+
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pullUpLoad="true"
+            @pullingUp="loadMore">
+      <HomeSwiper :banners="banners"/>
+      <home-swiper :banners="banners" @swiperimageload="swiperimageload"/>
+      <recommend-view :recommends="recommends"/>
+      <home-feature/>
+      <tab-control class="tab-control"
+                   :titles="['流行','新款','精选']"
+                   @tabClick="tabClick"
+                    ref="tabcontrol"/>
+      <goods-list-view :goods="showGoods"/>
+    </scroll>
+    <back-top @click.native="backClick" v-show="shouldShowBackTop"/>
   </div>
 </template>
 
@@ -138,6 +152,7 @@ import HomeFeature from "views/home/childcomps/HomeFeature";
 
 
 import {getHomeMultiata, getHomeGoods} from "@/network/home";
+import {debounce} from "@/common/utils";
 
 
 export default {
@@ -173,16 +188,19 @@ export default {
         },
       },
 
+
+      shouldShowBackTop: false,
       currentType: 'pop',
-      tabOffsetTop: 0,
-      saveY: 0
+      tabOffsetTop:0,
+      saveY:0
     }
   },
 
   computed: {
     showGoods() {
       return this.goods[this.currentType].list
-    }
+    },
+
   },
 
   created() {
@@ -196,8 +214,14 @@ export default {
   },
 
   mounted() {
-
+    //监听图片加载完成
+    const refresh = debounce(this.$refs.scroll.refreshScroll, 1000)
+    this.$bus.$on('itemImageLoad', () => {
+      console.log('imageLoad');
+      refresh()
+    })
   },
+
 
   //页面显示
   activated() {
@@ -241,12 +265,20 @@ export default {
       }
     },
 
+    contentScroll(position) {
+      this.shouldShowBackTop = (-position.y) > 1000
+    },
+
+    loadMore() {
+      console.log('loadMore');
+      this.homeGoodsGet(this.currentType)
+    },
 
     /*监听组件的点击，必须要加.navtive  @click.native*/
-    backClick() {
+    backClick(){
       console.log('点击了');
       // this.$refs.scroll.scroll.scrollTo(0,0,500)
-      this.$refs.scroll.scrollPosition(0, 0, 500)
+      this.$refs.scroll.scrollPosition(0,0,500)
     },
 
 
@@ -268,6 +300,7 @@ export default {
         // ... 解析函数
         this.goods[type].list.push(...list)
         this.goods[type].page += 1
+        this.$refs.scroll.finishPullUp()
       }).catch(err => {
         console.log('getHomeGoods:' + type + err);
       })
